@@ -1,0 +1,566 @@
+﻿<Window
+    x:Class="MovieDatabase.View.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:MovieDatabase.ViewModel"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    Title="Movie Database"
+    Width="1000"
+    Height="687"
+    MinWidth="975"
+    MinHeight="540"
+    Background="#202020"
+    BorderBrush="#AAA"
+    BorderThickness="4"
+    Foreground="White"
+    Icon="/View/icon.png"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <Window.DataContext>
+        <viewModel:MainViewModel />
+    </Window.DataContext>
+    <Window.InputBindings>
+        <KeyBinding Key="Return" Command="{Binding FilterCommand}" />
+    </Window.InputBindings>
+
+    <!--  Windows Resources Styles  -->
+    <!--#region Windows Resources Styles-->
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Template" Value="{DynamicResource ButtonDarkTemplate}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="#363636" />
+            <Setter Property="Padding" Value="10,0" />
+            <Setter Property="Margin" Value="10" />
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="#323232" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Thin" />
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+            <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="15,5" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="#FF353535" />
+            <Setter Property="BorderBrush" Value="#707070" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="SelectionBrush" Value="Black" />
+            <Setter Property="SelectionOpacity" Value="0.5" />
+        </Style>
+    </Window.Resources>
+    <!--#endregion-->
+
+    <Grid>
+        <!--  Definitions  -->
+        <!--#region Definitions-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="65" />
+            <RowDefinition Height="0.7*" MaxHeight="35" />
+            <RowDefinition Height="2*" MaxHeight="100" />
+            <RowDefinition Height="1.3*" MaxHeight="60" />
+            <!--  Break:  -->
+            <RowDefinition Height="10" MaxHeight="50" />
+            <RowDefinition Height="0.7*" MaxHeight="35" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="1*" MinWidth="255" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <!--#endregion-->
+
+
+        <!--  Border Lines  -->
+        <!--#region Border Lines-->
+
+        <!--  First  -->
+        <Border
+            Grid.Row="2"
+            Grid.RowSpan="3"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Margin="10,0,10,0"
+            Background="#1E1E1E"
+            BorderBrush="#848484"
+            BorderThickness="1,1,1,1"
+            CornerRadius="3" />
+
+        <!--  Second  -->
+        <Border
+            Grid.Row="6"
+            Grid.RowSpan="4"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Margin="10,0,10,10"
+            Background="#1E1E1E"
+            BorderBrush="#848484"
+            BorderThickness="1,1,1,1"
+            CornerRadius="3" />
+        <!--#endregion-->
+
+
+
+        <!--  ##### ROW 1 - HEADER "Movie Database" #####  -->
+        <!--#region ROW 1-->
+
+        <!--  Title "Movie Database"  -->
+        <Grid
+            Column="1"
+            Row="0"
+            RowSpan="2">
+
+            <!--  Resources  -->
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                    <Setter Property="TextAlignment" Value="Center" />
+                    <Setter Property="FontWeight" Value="DemiBold" />
+                </Style>
+            </Grid.Resources>
+
+            <!--  TextBlocks  -->
+            <TextBlock
+                Padding="10,0"
+                FontSize="55"
+                Foreground="#555"
+                Text="Movie Database" />
+            <TextBlock
+                Padding="6,2,10,6"
+                FontSize="55.2"
+                Foreground="#CCC"
+                Text="Movie Database" />
+        </Grid>
+
+        <!--#endregion-->
+
+
+
+        <!--  ##### ROW 2 - TEXT "Filters" #####  -->
+        <!--#region ROW 2-->
+
+        <!--  Filters TextBlock  -->
+        <Grid
+            Margin="0,0,0,0"
+            VerticalAlignment="Center"
+            Column="1"
+            Row="2">
+
+            <TextBlock
+                FontSize="19"
+                Foreground="#999"
+                Text="Filters"
+                TextAlignment="Center" />
+        </Grid>
+
+        <!--#endregion-->
+
+
+
+        <!--  ##### ROW 3 - LEGENDS & FILTERS #####  -->
+        <!--#region ROW 3-->
+
+        <Grid Column="1" Row="3">
+
+            <!--  Definitions  -->
+            <!--#region Definitions-->
+            <Grid.RowDefinitions>
+                <!--  break:  -->
+                <RowDefinition Height="0.7*" />
+                <RowDefinition Height="1.0*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <!--  Title:  -->
+                <ColumnDefinition Width="1*" />
+                <!--  Genres:  -->
+                <ColumnDefinition Width="0.8*" />
+                <!--  Duration:  -->
+                <ColumnDefinition Width="0.9*" />
+                <!--  Rating:  -->
+                <ColumnDefinition Width="0.9*" />
+                <!--  Release:  -->
+                <ColumnDefinition Width="0.96*" />
+                <!--  IsWatched:  -->
+                <ColumnDefinition Width="0.75*" />
+                <!--  YourRating:  -->
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <!--#endregion-->
+
+
+
+            <!--  Filters legend  -->
+            <!--#region Filters legend-->
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                FontSize="20"
+                FontWeight="SemiBold"
+                Foreground="#AAA"
+                Text="Title" />
+
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="1"
+                FontSize="20"
+                Foreground="#CCC"
+                Text="Genres" />
+
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="2"
+                FontSize="20"
+                Foreground="#CCC"
+                Text="Duration" />
+
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="3"
+                FontSize="20"
+                Foreground="#CCC"
+                Text="Average rating" />
+
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="4"
+                FontSize="20"
+                Foreground="#CCC"
+                Text="Release year" />
+
+
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="5"
+                FontSize="20"
+                Foreground="#CCC"
+                Text="Is watched?" />
+
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="6"
+                FontSize="20"
+                Foreground="#CCC"
+                Text="Your rating" />
+            <!--#endregion-->
+
+
+            <!--  Filters edition  -->
+            <!--#region Filters edition-->
+            <TextBox
+                Grid.Row="1"
+                Grid.Column="0"
+                TabIndex="1"
+                Template="{DynamicResource TextBoxTemplate}"
+                Text="{Binding Title}"
+                ToolTip="Enter title (min. 3 characters)." />
+
+            <xctk:CheckComboBox
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="10,5"
+                Padding="4"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Delimiter="&#x0a;"
+                FontSize="12"
+                ItemsSource="{Binding Genres}"
+                SelectedValue="{Binding SelectedGenres}"
+                Style="{StaticResource CheckComboBoxStyle}"
+                TabIndex="3"
+                ToolTip="Choose genres." />
+
+            <xctk:DoubleUpDown
+                Grid.Row="1"
+                Grid.Column="2"
+                Margin="25,5"
+                FormatString="G"
+                Increment="10"
+                Maximum="1250"
+                Minimum="0"
+                TabIndex="4"
+                ToolTip="Enter minimum duration in minutes (0-1250)."
+                Value="{Binding Duration}" />
+
+            <xctk:DoubleUpDown
+                Name="Rating"
+                Grid.Row="1"
+                Grid.Column="3"
+                Margin="20,5"
+                FormatString="0.0"
+                Increment="0.5"
+                Maximum="10"
+                Minimum="0"
+                TabIndex="5"
+                ToolTip="Enter minimum community rating (0-10)."
+                Value="{Binding Rating}" />
+
+
+            <xctk:DoubleUpDown
+                Name="ReleaseDate"
+                Grid.Row="1"
+                Grid.Column="4"
+                Margin="20,5"
+                Increment="1"
+                Maximum="2017"
+                Minimum="1874"
+                TabIndex="6"
+                ToolTip="Enter minimum release date (1874-2017)."
+                Value="{Binding ReleaseDate}" />
+
+
+            <CheckBox
+                Grid.Row="1"
+                Grid.Column="5"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                BorderThickness="0.75"
+                IsChecked="{Binding IsWatched}"
+                IsThreeState="True"
+                Style="{DynamicResource CheckBoxStyle}"
+                TabIndex="7"
+                ToolTip="Check if you want to only see movies watched by you.&#x0a;Uncheck if you want to see movies unwatched by you."
+                Validation.ErrorTemplate="{x:Null}">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="1.9" ScaleY="1.9" />
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+
+            <xctk:DoubleUpDown
+                Name="UserRating"
+                Grid.Row="1"
+                Grid.Column="6"
+                Margin="25,5"
+                FormatString="0.0"
+                Increment="0.5"
+                Maximum="10"
+                Minimum="0"
+                TabIndex="8"
+                ToolTip="Enter your minimum rating (0-10)."
+                Value="{Binding UserRating, Mode=TwoWay}" />
+            <!--#endregion-->
+
+        </Grid>
+
+        <!--#endregion-->
+
+
+
+        <!--  ##### ROW 4 - BUTTON "Apply" #####  -->
+        <!--#region ROW 4-->
+
+        <!--  Apply button  -->
+        <Grid Column="1" Row="4">
+
+            <Button
+                Grid.Row="0"
+                Grid.Column="0"
+                MinWidth="70"
+                MaxWidth="120"
+                Margin="413,8,413,11"
+                Background="#3E3E3E"
+                Command="{Binding FilterCommand}"
+                FontSize="18"
+                TabIndex="2"
+                ToolTip="Apply filtering and search movies.">
+                <TextBlock Text="Apply" />
+            </Button>
+
+        </Grid>
+
+        <!--#endregion-->
+
+
+
+        <!--  ##### ROW 6 - TExT "Results" #####  -->
+        <!--#region ROW 6-->
+
+        <!--  Wyniki TextBlock  -->
+        <Grid
+            Margin="0,0,0,0"
+            VerticalAlignment="Center"
+            Column="1"
+            Row="6">
+
+            <TextBlock
+                FontSize="19"
+                Foreground="#999999"
+                Text="Results"
+                TextAlignment="Center" />
+        </Grid>
+
+        <!--#endregion-->
+
+
+
+        <!--  ##### ROW 7 - RESULTS LISTVIEW #####  -->
+        <!--#region ROW 7-->
+
+        <!--  Results  -->
+        <Grid Column="1" Row="7">
+            <!--  Dummy Grid  -->
+            <!--#region Dummy Grid-->
+            <Grid Name="DummyGrid" Visibility="Hidden">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200*" />
+                    <ColumnDefinition Width="210*" />
+                    <ColumnDefinition Width="100*" />
+                    <ColumnDefinition Width="75*" />
+                    <ColumnDefinition Width="100*" />
+                    <ColumnDefinition Width="105*" />
+                    <ColumnDefinition Width="100*" />
+                    <ColumnDefinition Width="44" />
+                </Grid.ColumnDefinitions>
+                <Border Name="DummyWidth0" Grid.Column="0" />
+                <Border Name="DummyWidth1" Grid.Column="1" />
+                <Border Name="DummyWidth2" Grid.Column="2" />
+                <Border Name="DummyWidth3" Grid.Column="3" />
+                <Border Name="DummyWidth4" Grid.Column="4" />
+                <Border Name="DummyWidth5" Grid.Column="5" />
+                <Border Name="DummyWidth6" Grid.Column="6" />
+            </Grid>
+            <!--#endregion-->
+
+            <!--  Results  -->
+            <ListView ItemsSource="{Binding Entries, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedIndex="{Binding SelectedIndex, UpdateSourceTrigger=PropertyChanged}">
+
+                <!--  ListView.View  -->
+                <ListView.View>
+                    <GridView>
+                        <!--  Title  -->
+                        <GridViewColumn Width="{Binding ElementName=DummyWidth0, Path=ActualWidth}" DisplayMemberBinding="{Binding Title}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader
+                                    Command="{Binding SortTitleCommand}"
+                                    Content="Title"
+                                    Template="{StaticResource CustomTitleHeader}" />
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+
+                        <!--  Genres  -->
+                        <GridViewColumn Width="{Binding ElementName=DummyWidth1, Path=ActualWidth}" DisplayMemberBinding="{Binding Genres}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Content="Genres" Template="{StaticResource CustomHeader}" />
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+
+                        <!--  Duration  -->
+                        <GridViewColumn Width="{Binding ElementName=DummyWidth2, Path=ActualWidth}" DisplayMemberBinding="{Binding Duration}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader
+                                    Command="{Binding SortDurationCommand}"
+                                    Content="Duration"
+                                    Template="{StaticResource CustomHeader}" />
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+
+                        <!--  Rating  -->
+                        <GridViewColumn Width="{Binding ElementName=DummyWidth3, Path=ActualWidth}" DisplayMemberBinding="{Binding Rating}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader
+                                    Command="{Binding SortRatingCommand}"
+                                    Content="Rating"
+                                    Template="{StaticResource CustomHeader}" />
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+
+                        <!--  Release year  -->
+                        <GridViewColumn Width="{Binding ElementName=DummyWidth4, Path=ActualWidth}" DisplayMemberBinding="{Binding ReleaseDate}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader
+                                    Command="{Binding SortReleaseCommand}"
+                                    Content="Release year"
+                                    Template="{StaticResource CustomHeader}" />
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+
+                        <!--  Is watched?  -->
+                        <GridViewColumn Width="{Binding ElementName=DummyWidth5, Path=ActualWidth}">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox
+                                        Margin="3"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        IsChecked="{Binding IsWatchedResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Style="{DynamicResource CheckBoxStyle}">
+                                        <CheckBox.LayoutTransform>
+                                            <ScaleTransform ScaleX="1.25" ScaleY="1.25" />
+                                        </CheckBox.LayoutTransform>
+                                    </CheckBox>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Content="Is watched?" Template="{StaticResource CustomHeader}" />
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+
+                        <!--  Your rating  -->
+                        <GridViewColumn Width="{Binding ElementName=DummyWidth6, Path=ActualWidth}">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <xctk:DoubleUpDown
+                                        Width="48"
+                                        Height="27"
+                                        FontSize="15"
+                                        FormatString="0.0"
+                                        Increment="0.5"
+                                        Maximum="10"
+                                        Minimum="0"
+                                        MouseWheelActiveTrigger="FocusedMouseOver"
+                                        Value="{Binding UserRatingResult, Mode=TwoWay}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Content="Your rating" Template="{StaticResource CustomHeader}" />
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+
+        <!--#endregion-->
+
+
+
+        <!--  ##### ROW 8 - NUMBER OF RECORDS #####  -->
+        <!--#region ROW 8-->
+        <Grid Column="1" Row="8">
+            <StackPanel
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,8,5,0"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Foreground="#CCC"
+                    Text="Number of records:" />
+                <TextBox
+                    Margin="0,10,10,0"
+                    VerticalAlignment="Center"
+                    IsReadOnly="True"
+                    IsTabStop="False"
+                    Template="{DynamicResource TextBoxTemplate}"
+                    Text="{Binding NumberOfRecords}" />
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
+
+
+    </Grid>
+</Window>
